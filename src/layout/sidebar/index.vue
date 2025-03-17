@@ -18,6 +18,20 @@
         <i-ep-menu class="el-icon"></i-ep-menu>
         <span>Navigator Two</span>
       </el-menu-item>
+      <el-sub-menu index="3">
+        <template #title>
+          <i-ep-setting class="el-icon"></i-ep-setting>
+          <span>Navigator One</span>
+        </template>
+        <el-menu-item index="3-4-1">item one</el-menu-item>
+      </el-sub-menu>
+      <el-sub-menu index="4">
+        <template #title>
+          <i-ep-setting class="el-icon"></i-ep-setting>
+          <span>Navigator One</span>
+        </template>
+        <el-menu-item index="4-4-1">item one</el-menu-item>
+      </el-sub-menu>
     </el-menu>
   </el-scrollbar>
 </template>

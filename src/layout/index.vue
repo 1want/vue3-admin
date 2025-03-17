@@ -28,7 +28,7 @@ import Header from './header/index.vue'
 }
 
 .el-header {
-  background: #000;
+  background: #cec8c8;
   color: #fff;
 }
 </style>
