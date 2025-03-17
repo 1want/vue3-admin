@@ -44,11 +44,12 @@ const { isCollapse } = useUserInfo()
 
 <style scoped>
 .el-menu {
-  transition: width 0.3s ease-in-out;
   border: none;
 }
 
 .el-scrollbar {
+  height: 100vh;
+  background-color: #2d2a2e;
   transition: all 0.3s ease-in-out;
 }
 </style>
