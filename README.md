@@ -1,5 +1,9 @@
-# Vue 3 + Vite
+## 环境要求
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+- **node.js**: `23.8.0`
+- **npm**: `10.9.2`
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## 安装步骤
+
+pnpm install
+pnpm run serve

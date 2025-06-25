@@ -27,7 +27,7 @@ export default defineConfig({
     alias: {
       '@': '/src/'
     },
-    extensions: ['.js', '.vue']
+    extensions: ['.ts', '.js', '.vue']
   },
   server: {
     proxy: {

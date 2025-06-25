@@ -1,4 +1,4 @@
-<template>home</template>
+<template>homes</template>
 
 <script setup>
 import axios from 'axios'
