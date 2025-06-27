@@ -12,12 +12,17 @@ const router = createRouter({
       name: 'layout',
       path: '/',
       component: () => import('@/layout/index.vue'),
-      redirect: '/home',
+      redirect: '/positioning-management',
       children: [
         {
-          name: 'home',
-          path: 'home',
-          component: () => import('@/views/home/index.vue')
+          name: 'positioning-management',
+          path: 'positioning-management',
+          component: () => import('@/views/positioning-management/index.vue')
+        },
+        {
+          name: 'approval-management',
+          path: 'approval-management',
+          component: () => import('@/views/approval-management/index.vue')
         }
       ]
     }

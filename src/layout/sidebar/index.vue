@@ -5,32 +5,21 @@
       text-color="#999"
       active-text-color="#3a93ef"
       background-color="#2d2a2e"
-      default-active="2"
+      :default-active="$route.name"
+      router
     >
-      <el-sub-menu index="1">
+      <el-sub-menu v-for="item in routeArr" :key="item.name" :index="item.name">
         <template #title>
-          <i-ep-setting class="el-icon"></i-ep-setting>
-          <span>Navigator One</span>
+          <i-ep-setting></i-ep-setting>
+          <span>{{ item.name }}</span>
         </template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-      <el-menu-item index="2">
-        <i-ep-menu class="el-icon"></i-ep-menu>
-        <span>Navigator Two</span>
-      </el-menu-item>
-      <el-sub-menu index="3">
-        <template #title>
-          <i-ep-setting class="el-icon"></i-ep-setting>
-          <span>Navigator One</span>
-        </template>
-        <el-menu-item index="3-4-1">item one</el-menu-item>
-      </el-sub-menu>
-      <el-sub-menu index="4">
-        <template #title>
-          <i-ep-setting class="el-icon"></i-ep-setting>
-          <span>Navigator One</span>
-        </template>
-        <el-menu-item index="4-4-1">item one</el-menu-item>
+        <el-menu-item
+          v-for="itemz of item.children"
+          :key="itemz.name"
+          :index="itemz.routeName"
+        >
+          {{ itemz.name }}
+        </el-menu-item>
       </el-sub-menu>
     </el-menu>
   </el-scrollbar>
@@ -40,9 +29,32 @@
 import useUserInfo from '@/hooks/useUserInfo'
 
 const { isCollapse } = useUserInfo()
+
+const routeArr = [
+  {
+    name: '考勤设置',
+    icon: 'Edit',
+    children: [
+      {
+        name: '定位管理',
+        routeName: 'positioning-management'
+      }
+    ]
+  },
+  {
+    name: '工作管理',
+    icon: 'i-ep-work',
+    children: [
+      {
+        name: '审批管理',
+        routeName: 'approval-management'
+      }
+    ]
+  }
+]
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .el-menu {
   border: none;
 }
