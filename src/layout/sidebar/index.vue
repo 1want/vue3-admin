@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar :style="{ width: isCollapse ? '64px' : '200px' }">
+  <el-scrollbar :style="{ minWidth: isCollapse ? '64px' : '200px' }">
     <el-menu
       :collapse="isCollapse"
       text-color="#999"
@@ -10,7 +10,7 @@
     >
       <el-sub-menu v-for="item in routeArr" :key="item.name" :index="item.name">
         <template #title>
-          <i-ep-setting></i-ep-setting>
+          <el-icon><Setting /></el-icon>
           <span>{{ item.name }}</span>
         </template>
         <el-menu-item
@@ -26,6 +26,7 @@
 </template>
 
 <script setup>
+import { Setting } from '@element-plus/icons-vue'
 import useUserInfo from '@/hooks/useUserInfo'
 
 const { isCollapse } = useUserInfo()
@@ -60,6 +61,7 @@ const routeArr = [
 }
 
 .el-scrollbar {
+  min-width: 64px;
   height: 100vh;
   background-color: #2d2a2e;
   transition: all 0.3s ease-in-out;
