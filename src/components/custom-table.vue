@@ -52,7 +52,7 @@
       align="center"
     >
       <template #default="scope">
-        <template v-for="operation in operations" :key="opIndex">
+        <template v-for="operation in operations" :key="operation.label">
           <el-button
             :type="operation.type || 'primary'"
             size="small"
@@ -81,6 +81,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import type { PropType } from 'vue'
+import type { ElTable } from 'element-plus'
 
 interface TableColumnConfig {
   prop: string
@@ -167,9 +168,7 @@ const emit = defineEmits([
   'current-change',
   'selection-change'
 ])
-
-// 表格实例引用
-const tableRef = ref(null)
+const tableRef = ref<InstanceType<typeof ElTable> | null>(null)
 
 // 处理分页事件
 const handleSizeChange = (val: number) => {
@@ -192,16 +191,6 @@ const getTagType = (row: any, column: any) => {
 
 // 暴露表格方法
 defineExpose({
-  // 获取表格实例
-  getTableRef: () => tableRef.value,
-  // 清除所选行
-  clearSelection: () => tableRef.value?.clearSelection(),
-  // 切换行选中状态
-  toggleRowSelection: (row: any, selected?: boolean) => {
-    tableRef.value?.toggleRowSelection(row, selected)
-  },
-  // 切换全选状态
-  toggleAllSelection: () => tableRef.value?.toggleAllSelection(),
   // 获取选中行数据
   getSelectionRows: () => tableRef.value?.getSelectionRows?.() || []
 })

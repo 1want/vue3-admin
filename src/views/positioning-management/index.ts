@@ -7,27 +7,22 @@ export interface ColumnConfig {
 
 export const columns: ColumnConfig[] = [
   {
-    prop: 'date',
+    prop: 'company',
     label: '公司',
     minWidth: 180
   },
   {
-    prop: 'date',
-    label: '坐标',
+    prop: 'latitude',
+    label: '横坐标',
     minWidth: 180
   },
   {
-    prop: 'date',
-    label: '时间',
+    prop: 'longitude',
+    label: '纵坐标',
     minWidth: 180
   },
   {
-    prop: 'name',
-    label: 'Name',
-    minWidth: 180
-  },
-  {
-    prop: 'photo',
+    prop: 'isPhoto',
     label: '是否拍照',
     type: 'switch',
     minWidth: 180

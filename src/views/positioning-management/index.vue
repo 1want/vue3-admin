@@ -7,23 +7,56 @@
     v-model:pageSize="pageSize"
     @current-change="handleCurrentChange"
     @size-change="handleSizeChange"
-    showPagination
     :operations="operations"
   />
+  <el-dialog v-model="dialogVisible" title="编辑" width="500" draggable>
+    <el-form :model="form" label-width="80px">
+      <el-form-item label="公司">
+        <el-input v-model="form.company" />
+      </el-form-item>
+      <el-form-item label="横坐标">
+        <el-input v-model="form.latitude" />
+      </el-form-item>
+      <el-form-item label="纵坐标">
+        <el-input v-model="form.longitude" />
+      </el-form-item>
+      <el-form-item label="是否拍照">
+        <el-switch v-model="form.isPhoto"></el-switch>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">
+          确认
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { columns } from './index.ts'
 import CustomTable from '@/components/custom-table.vue'
 
 const total = ref(1000)
+const form = reactive({
+  company: '',
+  latitude: '',
+  longitude: '',
+  isPhoto: false
+})
+const dialogVisible = ref(false)
 const operations = ref([
   {
     label: '编辑',
     type: 'primary',
-    onClick: (row: any, index: number) => {
-      console.log('Edit', row, index)
+    onClick: (row: any) => {
+      dialogVisible.value = true
+      Object.keys(form).forEach(value => {
+        ;(form as any)[value] = (row as any)[value]
+      })
     }
   }
 ])
@@ -38,74 +71,22 @@ const handleCurrentChange = (val: number) => {
 }
 const tableData = [
   {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
+    company: 'huli',
+    latitude: 12.32,
+    longitude: 121.3131,
+    isPhoto: false
   },
   {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
+    company: 'lius',
+    latitude: 32.32,
+    longitude: 1.739,
+    isPhoto: true
   },
   {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
+    company: 'wuli',
+    latitude: 112.32,
+    longitude: 1.81,
+    isPhoto: false
   }
 ]
 </script>
