@@ -37,7 +37,7 @@ const routeArr = [
     icon: 'Edit',
     children: [
       {
-        name: '定位管理',
+        name: '打卡设置',
         routeName: 'positioning-management'
       }
     ]
@@ -48,6 +48,22 @@ const routeArr = [
     children: [
       {
         name: '审批管理',
+        routeName: 'approval-management'
+      },
+      {
+        name: '考勤管理',
+        routeName: 'approval-management'
+      },
+      {
+        name: '日报管理',
+        routeName: 'approval-management'
+      },
+      {
+        name: '请假管理',
+        routeName: 'approval-management'
+      },
+      {
+        name: '加班管理',
         routeName: 'approval-management'
       }
     ]
