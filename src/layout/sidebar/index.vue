@@ -5,20 +5,24 @@
       text-color="#999"
       active-text-color="#3a93ef"
       background-color="#2d2a2e"
-      :default-active="$route.name"
+      :default-active="$route.path"
       router
     >
-      <el-sub-menu v-for="item in routeArr" :key="item.name" :index="item.name">
+      <el-sub-menu
+        v-for="item in userRouters"
+        :key="item.meta.title"
+        :index="item.path"
+      >
         <template #title>
           <el-icon><Setting /></el-icon>
-          <span>{{ item.name }}</span>
+          <span>{{ item.meta.title }}</span>
         </template>
         <el-menu-item
           v-for="itemz of item.children"
-          :key="itemz.name"
-          :index="itemz.routeName"
+          :key="itemz.meta.title"
+          :index="`/${item.path}/${itemz.path}`"
         >
-          {{ itemz.name }}
+          {{ itemz.meta.title }}
         </el-menu-item>
       </el-sub-menu>
     </el-menu>
@@ -28,47 +32,9 @@
 <script setup>
 import { Setting } from '@element-plus/icons-vue'
 import useUserInfo from '@/hooks/useUserInfo'
+import userRouters from '@/router/userRouters'
 
 const { isCollapse } = useUserInfo()
-
-const routeArr = [
-  {
-    name: '考勤设置',
-    icon: 'Edit',
-    children: [
-      {
-        name: '打卡设置',
-        routeName: 'positioning-management'
-      }
-    ]
-  },
-  {
-    name: '工作管理',
-    icon: 'i-ep-work',
-    children: [
-      {
-        name: '审批管理',
-        routeName: 'approval-management'
-      },
-      {
-        name: '考勤管理',
-        routeName: 'approval-management'
-      },
-      {
-        name: '日报管理',
-        routeName: 'approval-management'
-      },
-      {
-        name: '请假管理',
-        routeName: 'approval-management'
-      },
-      {
-        name: '加班管理',
-        routeName: 'approval-management'
-      }
-    ]
-  }
-]
 </script>
 
 <style scoped lang="scss">

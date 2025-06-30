@@ -1,4 +1,5 @@
 import { createWebHashHistory, createRouter } from 'vue-router'
+import userRouters from './userRouters.ts'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -12,19 +13,8 @@ const router = createRouter({
       name: 'layout',
       path: '/',
       component: () => import('@/layout/index.vue'),
-      redirect: '/positioning-management',
-      children: [
-        {
-          name: 'positioning-management',
-          path: 'positioning-management',
-          component: () => import('@/views/positioning-management/index.vue')
-        },
-        {
-          name: 'approval-management',
-          path: 'approval-management',
-          component: () => import('@/views/approval-management/index.vue')
-        }
-      ]
+      redirect: '/attendance-settings/positioning-management',
+      children: userRouters
     }
   ]
 })
