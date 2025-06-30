@@ -28,9 +28,9 @@ import TopBar from './top-bar/index.vue'
 
 <style>
 .el-input {
-  --el-input-width: 170px;
+  --el-input-width: 170px !important;
 }
 .el-select {
-  --el-select-width: 170px;
+  --el-select-width: 170px !important;
 }
 </style>

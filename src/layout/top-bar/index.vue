@@ -19,13 +19,13 @@
     <div class="bottom">
       <el-scrollbar>
         <div class="scrollbar-flex-content">
-          <p
+          <div
             v-for="item in historyMenus"
             :key="item"
             class="scrollbar-demo-item"
           >
             {{ item.title }}
-          </p>
+          </div>
         </div>
       </el-scrollbar>
     </div>
@@ -108,9 +108,11 @@ onMounted(() => {
 .top {
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 5px 20px;
   height: 40px;
   justify-content: space-between;
+  box-sizing: border-box;
+
   .left {
     display: flex;
     align-items: center;
@@ -127,6 +129,7 @@ onMounted(() => {
 
 .scrollbar-flex-content {
   display: flex;
+  align-items: center;
   width: fit-content;
 }
 .scrollbar-demo-item {
@@ -136,7 +139,7 @@ onMounted(() => {
   justify-content: center;
   width: 80px;
   height: 30px;
-  margin: 10px 10px 10px 0;
+  margin-right: 10px;
   text-align: center;
   border-radius: 4px;
   border: 1px solid #dcdfe6;
