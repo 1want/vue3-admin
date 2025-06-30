@@ -1,4 +1,13 @@
 <template>
+  <OperationBar
+    :buttons="operationButtons"
+    :form-items="searchFormItems"
+    :initial-form-data="searchFormData"
+    @button-click="handleButtonClick"
+    @search="handleSearch"
+    @reset="handleReset"
+  />
+
   <CustomTable
     :tableData="tableData"
     :columns="columns"
@@ -39,6 +48,8 @@
 import { ref, reactive } from 'vue'
 import { columns } from './index.ts'
 import CustomTable from '@/components/custom-table.vue'
+import OperationBar from '@/components/operation.vue'
+import { Delete, Plus, Search } from '@element-plus/icons-vue'
 
 const total = ref(1000)
 const form = reactive({
@@ -62,6 +73,46 @@ const operations = ref([
 ])
 const currentPage = ref(1)
 const pageSize = ref(10)
+const operationButtons = ref([
+  {
+    label: '添加',
+    type: 'primary',
+    icon: Plus,
+    key: 'add'
+  },
+  {
+    label: '删除',
+    type: 'danger',
+    icon: Delete,
+    key: 'delete'
+  }
+])
+const searchFormItems = ref([
+  {
+    type: 'input',
+    placeholder: '请输入公司名称',
+    prop: 'company'
+  },
+  {
+    type: 'select',
+    placeholder: '请选择拍照状态',
+    prop: 'photoStatus',
+    options: [
+      { label: '需要拍照', value: true },
+      { label: '不需要拍照', value: false }
+    ]
+  },
+  {
+    type: 'daterange',
+    placeholder: '请选择创建时间',
+    prop: 'dateRange'
+  }
+])
+const searchFormData = reactive({
+  company: '',
+  photoStatus: undefined,
+  dateRange: []
+})
 
 const handleSizeChange = (val: number) => {
   console.log(`${val} items per page`)

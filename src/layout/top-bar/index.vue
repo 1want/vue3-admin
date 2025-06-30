@@ -16,7 +16,19 @@
         <el-button>退出</el-button>
       </div>
     </div>
-    <div class="bottom">btm</div>
+    <div class="bottom">
+      <el-scrollbar>
+        <div class="scrollbar-flex-content">
+          <p
+            v-for="item in historyMenus"
+            :key="item"
+            class="scrollbar-demo-item"
+          >
+            {{ item.title }}
+          </p>
+        </div>
+      </el-scrollbar>
+    </div>
   </div>
 </template>
 
@@ -25,10 +37,14 @@ import useUserInfo from '@/hooks/useUserInfo'
 import { Expand, Fold } from '@element-plus/icons-vue'
 import { changeGlobalNodesTarget } from 'element-plus/es/utils/index.mjs'
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { computed, watch, onMounted, ref } from 'vue'
 
 const { toggleCollapse, isCollapse } = useUserInfo()
 const route = useRoute()
+const historyMenus = ref([])
+const historyContainerRef = ref(null)
+const showLeftArrow = ref(false)
+const showRightArrow = ref(false)
 
 const breadcrumbs = computed(() => {
   return route.matched
@@ -40,9 +56,48 @@ const breadcrumbs = computed(() => {
       }
     })
 })
+
+watch(
+  () => route.path,
+  () => {
+    // 只处理二级菜单
+    if (
+      route.matched.length >= 3 &&
+      route.matched[2].meta &&
+      route.matched[2].meta.title
+    ) {
+      const parentRoute = route.matched[1]
+      const currentRoute = route.matched[2]
+      // 检查是否已存在于历史记录中
+      const exists = historyMenus.value.some(
+        item =>
+          item.path === currentRoute.path.split('/').pop() &&
+          item.parentPath === parentRoute.path.split('/').pop()
+      )
+      if (!exists) {
+        // 添加到历史记录
+        historyMenus.value.push({
+          title: currentRoute.meta.title,
+          path: currentRoute.path.split('/').pop(),
+          parentPath: parentRoute.path.split('/').pop()
+        })
+        // 保存到本地存储
+        localStorage.setItem('historyMenus', JSON.stringify(historyMenus.value))
+      }
+    }
+  },
+  { immediate: true }
+)
+
+onMounted(() => {
+  const savedHistory = localStorage.getItem('historyMenus')
+  if (savedHistory) {
+    historyMenus.value = JSON.parse(savedHistory)
+  }
+})
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .wrapper {
   height: 80px;
   border-bottom: 1px solid #e4e7ed;
@@ -56,16 +111,35 @@ const breadcrumbs = computed(() => {
   padding: 0 20px;
   height: 40px;
   justify-content: space-between;
-}
-.top .left {
-  display: flex;
-  align-items: center;
-}
-.el-breadcrumb {
-  margin-left: 20px;
+  .left {
+    display: flex;
+    align-items: center;
+  }
 }
 .bottom {
   padding: 0 20px;
   flex: 1;
+}
+
+.el-breadcrumb {
+  margin-left: 20px;
+}
+
+.scrollbar-flex-content {
+  display: flex;
+  width: fit-content;
+}
+.scrollbar-demo-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 30px;
+  margin: 10px 10px 10px 0;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid #dcdfe6;
+  font-size: 14px;
 }
 </style>
