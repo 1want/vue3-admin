@@ -18,8 +18,8 @@
     @size-change="handleSizeChange"
     :operations="operations"
   />
-  <el-dialog v-model="dialogVisible" title="编辑" width="500" draggable>
-    <el-form :model="form" label-width="80px">
+  <el-dialog v-model="dialogVisible" title="编辑" width="600" draggable>
+    <el-form :inline="true" :model="form" label-width="80px">
       <el-form-item label="公司">
         <el-input v-model="form.company" />
       </el-form-item>

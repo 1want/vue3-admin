@@ -5,7 +5,7 @@
     v-bind="$attrs"
     :data="tableData"
     v-loading="loading"
-    height="calc(100vh - 172px)"
+    height="calc(100vh - 222px)"
     style="width: 100%"
   >
     <el-table-column v-if="showSelection" type="selection" width="55" />

@@ -25,3 +25,12 @@ import TopBar from './top-bar/index.vue'
   overflow: hidden;
 }
 </style>
+
+<style>
+.el-input {
+  --el-input-width: 170px;
+}
+.el-select {
+  --el-select-width: 170px;
+}
+</style>

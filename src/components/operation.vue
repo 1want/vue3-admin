@@ -1,6 +1,5 @@
 <template>
   <div class="operation-bar">
-    <!-- 左侧按钮区域 -->
     <div class="button-area">
       <template v-for="(button, index) in buttons" :key="index">
         <el-button
@@ -13,15 +12,12 @@
           {{ button.label }}
         </el-button>
       </template>
-      <!-- 按钮插槽 -->
       <slot name="buttons"></slot>
     </div>
 
-    <!-- 右侧查询区域 -->
     <div class="search-area">
       <el-form :model="formData" :inline="true" class="search-form">
         <template v-for="(item, index) in formItems" :key="index">
-          <!-- 输入框 -->
           <el-form-item v-if="item.type === 'input'">
             <el-input
               v-model="formData[item.prop]"
@@ -31,7 +27,6 @@
             />
           </el-form-item>
 
-          <!-- 下拉框 -->
           <el-form-item v-else-if="item.type === 'select'">
             <el-select
               v-model="formData[item.prop]"
@@ -47,7 +42,6 @@
             </el-select>
           </el-form-item>
 
-          <!-- 日期选择器 -->
           <el-form-item v-else-if="item.type === 'date'">
             <el-date-picker
               v-model="formData[item.prop]"
@@ -57,7 +51,6 @@
             />
           </el-form-item>
 
-          <!-- 日期范围选择器 -->
           <el-form-item v-else-if="item.type === 'daterange'">
             <el-date-picker
               v-model="formData[item.prop]"
@@ -70,7 +63,6 @@
           </el-form-item>
         </template>
 
-        <!-- 查询按钮 -->
         <el-form-item>
           <el-button type="primary" :icon="Search" @click="handleSearch">
             查询
@@ -78,7 +70,6 @@
           <el-button :icon="Refresh" @click="handleReset">重置</el-button>
         </el-form-item>
 
-        <!-- 自定义表单项插槽 -->
         <slot name="form-items"></slot>
       </el-form>
     </div>
@@ -165,23 +156,14 @@ const handleReset = () => {
 
 <style lang="scss" scoped>
 .operation-bar {
-  margin-bottom: 16px;
-  padding: 16px;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  align-items: center;
 
   .button-area {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
-
-    .el-button {
-      margin-right: 10px;
-    }
   }
 
   .search-area {
@@ -189,11 +171,15 @@ const handleReset = () => {
     .search-form {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       justify-content: flex-end;
 
       .el-form-item {
         margin-right: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 0;
+        &:last-child {
+          margin-right: 0;
+        }
       }
     }
   }
